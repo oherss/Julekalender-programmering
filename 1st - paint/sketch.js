@@ -9,20 +9,28 @@ let sizeSlider;
 let colorPicker;
 let ClearButton;
 let PrintButton;
+let BackButton;
 function setup() {
   //defines the canvas to the size of the window
-   c = createCanvas(windowWidth, windowHeight);
+   c = createCanvas(windowWidth, windowHeight*0.9);
   background(255);
   //Creates UI Elements
+  BackButton = select('#BackButton')
   ClearButton = createButton("Clear Canvas");
-  PrintButton = createButton("Save")
+  PrintButton = createButton("Share")
   sizeSlider = createSlider(5, 25, 10); // min, max, default value
   colorPicker = createColorPicker('#ed225d');
   ClearButton.mousePressed(clearCanvas);
   PrintButton.mousePressed(saveImage);
+  BackButton.mousePressed(GetTheFuckBack);
   DrawUI(); //calls the fuction which draws the UI
   updateSetting(); //calls the function that checks all settings made
   
+}
+function GetTheFuckBack(){
+  var currentPath = window.location.pathname;
+  var newPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+  window.location.href = newPath;
 }
 windowResized()
 {
@@ -42,9 +50,9 @@ function DrawUI(){
   fill(brushColor)
   BrushCircle = circle(width/20, height-(height/8), brushSize)
   //Size slider
-  sizeSlider.position(10, height - height/20); // x, y coordinates
+  sizeSlider.position(30, height+ height /20); // x, y coordinates
   //Color picker
-  colorPicker.position(width/10, height - height/7);
+  colorPicker.position(width/10, height);
   print("UI finished updating")//debug line, to check how often code runs
   //colors
    for (let i = 0; i < colors.length; i++) {
@@ -52,8 +60,8 @@ function DrawUI(){
     rectMode(CORNER)
     rect(i * (height/15 + 10) + width/4, height-height/10, height/15, height/15);
      //Clear canvas button
-     ClearButton.position(width - width/8, height - height/10)
-     PrintButton.position(width - width/8, height - height/15)
+     ClearButton.position(width - width/8, height - height/20)
+     PrintButton.position(width - width/8, height - height/40)
   }
 }
 function updateSetting(){
