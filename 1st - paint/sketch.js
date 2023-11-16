@@ -30,7 +30,7 @@ function setup() {
 function GetTheFuckBack(){
   var currentPath = window.location.pathname;
   var newPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
-  window.location.href = newPath;
+  window.location.href = newPath + "/../index.html";
 }
 windowResized()
 {
