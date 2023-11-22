@@ -3,6 +3,7 @@ const rows = 20;
 const cols = 10;
 const blockSize = 30;
 
+let gamespeed = 1;
 let board = [];
 let currentPiece;
 let gameOver = false;
@@ -38,7 +39,7 @@ function spawnPiece() {
 }
 
 function updateGame() {
-    if (currentPiece.canMoveDown()) {
+    if (currentPiece.canMoveDown() && ) {
         currentPiece.moveDown();
     } else {
         currentPiece.lock();
