@@ -52,13 +52,9 @@
 
             // Disable the button if the date is in the future
             button1.disabled = new Date(day.date) > new Date();
-
-            // Set the width and height of the button
-            button1.style.width = '50px';
-            button1.style.height = '50px';
-
+ 
             // Set the border radius and background color of the button
-            button1.style.borderRadius = '1%';
+            button1.style.borderRadius = '10%';
             button1.style.backgroundColor = button1.disabled ? 'red' : 'green';
 
             // Add an event listener to the button that displays the content for the day
