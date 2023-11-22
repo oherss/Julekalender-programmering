@@ -7,11 +7,14 @@ let gamespeed = 1;
 let board = [];
 let currentPiece;
 let gameOver = false;
+let BackButton;
 
 function setup() {
     createCanvas(cols * blockSize, rows * blockSize);
     initializeBoard();
     spawnPiece();
+    BackButton = select('#BackButton')
+    BackButton.mousePressed(GetTheFuckBack);
 }
 
 function draw() {
@@ -39,7 +42,7 @@ function spawnPiece() {
 }
 
 function updateGame() {
-    if (currentPiece.canMoveDown() && ) {
+    if (currentPiece.canMoveDown() ) {
         currentPiece.moveDown();
     } else {
         currentPiece.lock();
