@@ -1,6 +1,7 @@
 h1 {
     text-align: center;
     color: red;
+    
 }
 body {
     background-color: rgb(76, 76, 76);
@@ -13,7 +14,7 @@ body {
 #calendar{
     
     width:100vw;
-    height:90vh;
+    height:auto;
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
     gap:1rem; 
