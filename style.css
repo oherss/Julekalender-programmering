@@ -1,6 +1,6 @@
 h1 {
     text-align: center;
-    color: red;
+    color: rgb(0, 255, 21);
     font-size: 5vh;
     margin-top: 1vh;
     margin-bottom: 1vh;
@@ -26,9 +26,11 @@ body {
 }
 
 #calendar button{
-    
     width:100%;
     height:16vh;
     font-size: 16vh;
-    text-align: center;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
