@@ -7,14 +7,18 @@ body {
     width:100vw;
     height:100vh;
     overflow: hidden;
+
 }
 
 #calendar{
+    margin-left: 2%;
+    margin-right: 2%;
     width:100vw;
     height:90vh;
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(18%, 1fr));
     gap:1rem; 
+    
    
 }
 
