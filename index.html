@@ -45,29 +45,29 @@
         // Loop through each day in the calendarData array
         calendarData.forEach(day => {
             // Create a new button element
-            const buttonEl = document.createElement('button');
+            const button1 = document.createElement('button');
 
             // Set the text content of the button to the day of the month
-            buttonEl.textContent = day.date.slice(-2);
+            button1.textContent = day.date.slice(-2);
 
             // Disable the button if the date is in the future
-            buttonEl.disabled = new Date(day.date) > new Date();
+            button1.disabled = new Date(day.date) > new Date();
 
             // Set the width and height of the button
-            buttonEl.style.width = '50px';
-            buttonEl.style.height = '50px';
+            button1.style.width = '50px';
+            button1.style.height = '50px';
 
             // Set the border radius and background color of the button
-            buttonEl.style.borderRadius = '5px';
-            buttonEl.style.backgroundColor = buttonEl.disabled ? 'red' : 'green';
+            button1.style.borderRadius = '1%';
+            button1.style.backgroundColor = button1.disabled ? 'red' : 'green';
 
             // Add an event listener to the button that displays the content for the day
-            buttonEl.addEventListener('click', () => {
+            button1.addEventListener('click', () => {
                 window.location.href = (day.content);
             });
 
             // Add the button to the calendar element
-            calendarEl.appendChild(buttonEl);
+            calendarEl.appendChild(button1);
         });
     </script>
 </body>
