@@ -1,4 +1,3 @@
-
 const rows = 20;
 const cols = 10;
 const blockSize = 30;
@@ -8,16 +7,19 @@ let board = [];
 let currentPiece;
 let gameOver = false;
 let BackButton;
+let time = 0;
 
 function setup() {
+    frameRate = 60;
     createCanvas(cols * blockSize, rows * blockSize);
     initializeBoard();
     spawnPiece();
     BackButton = select('#BackButton')
-    BackButton.mousePressed(GetTheFuckBack);
+    //BackButton.mousePressed(GetTheFuckBack);
 }
 
 function draw() {
+    
     background(220);
     if (!gameOver) {
         updateGame();
@@ -26,6 +28,7 @@ function draw() {
     } else {
         showGameOver();
     }
+    
 }
 
 function initializeBoard() {
@@ -42,15 +45,19 @@ function spawnPiece() {
 }
 
 function updateGame() {
-    if (currentPiece.canMoveDown() ) {
+    if (currentPiece.canMoveDown() && time == 60) {
+        time = 0;
         currentPiece.moveDown();
-    } else {
+    } else if (!currentPiece.canMoveDown()) {
         currentPiece.lock();
         if (currentPiece.isGameOver()) {
             gameOver = true;
         } else {
             spawnPiece();
         }
+    }
+    else{
+    time++;
     }
 }
 
@@ -123,6 +130,18 @@ class Piece {
 
     moveDown() {
         this.y++;
+    }
+    moveLeft(){
+        this.x--;
+    }
+    moveRight(){
+        this.x++;
+    }
+    rotate(){
+        if(this.shape == [[1,1],[1,1]])
+        return
+        else if(this.shape == [[1, 1, 1, 1]] )
+        this.shape = [[1],[1],[1],[1]]
     }
 
     lock() {
