@@ -56,7 +56,9 @@
  
             // Set the border radius and background color of the button
             button1.style.borderRadius = '2rem';
-            button1.style.backgroundColor = button1.disabled ? 'red' : 'green';
+            button1.style.backgroundImage = button1.disabled ? 'url(Pictures/Sproxxy/Blep.png)' : 'url(Pictures/Sproxxy/A.png)';
+            button1.style.backgroundSize = '40% 100%';
+            button1.style.backgroundRepeat = 'no-repeat';
 
             // Add an event listener to the button that displays the content for the day
             button1.addEventListener('click', () => {
@@ -67,5 +69,6 @@
             calendarEl.appendChild(button1);
         });
     </script>
+    
 </body>
 </html>
