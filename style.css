@@ -1,12 +1,13 @@
 h1 {
     text-align: center;
-    color: rgb(0, 255, 21);
+    color: rgb(255, 0, 0);
     font-size: 5vh;
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
 body {
-    background-color: rgb(76, 76, 76);
+    background-image: url(Pictures/christmas.jpg);
+    background-size: 70% 70%;
     width:100vw;
     height:100vh;
     overflow: hidden;
