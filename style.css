@@ -7,7 +7,7 @@ h1 {
 }
 body {
     background-image: url(Pictures/christmas.jpg);
-    background-size: 70% 70%;
+    background-size: 70% 100%;
     width:100vw;
     height:100vh;
     overflow: hidden;
