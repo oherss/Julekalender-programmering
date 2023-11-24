@@ -133,15 +133,18 @@ class Piece {
     }
     moveLeft(){
         this.x--;
+        print("moved left")
     }
     moveRight(){
         this.x++;
     }
     rotate(){
-        if(this.shape == [[1,1],[1,1]])
-        return
-        else if(this.shape == [[1, 1, 1, 1]] )
         this.shape = [[1],[1],[1],[1]]
+        print(currentPiece.shape)
+        if(currentPiece.shape == [[1,1],[1,1]])
+        print("Square");
+         if(currentPiece.shape == [[1, 1, 1, 1]])
+        print("long piece")
     }
 
     lock() {
