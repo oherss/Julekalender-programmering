@@ -55,6 +55,7 @@ const AllShapesNames= [
 function setup() {
     frameRate = 60;
     createCanvas(cols * blockSize, rows * blockSize);
+    
     initializeBoard();
     spawnPiece();
     BackButton = select('#BackButton')
@@ -68,6 +69,7 @@ function draw() {
         updateGame();
         drawBoard();
         drawPiece();
+        
     } else {
         showGameOver();
     }
@@ -96,6 +98,7 @@ function updateGame() {
         if (currentPiece.isGameOver()) {
             gameOver = true;
         } else {
+            checkAndClearLine();
             spawnPiece();
         }
     }
@@ -171,17 +174,51 @@ class Piece {
         return true;
     }
 
+    canMoveLeft() {
+        for (let row = 0; row < this.shape.length; row++) {
+            for (let col = 0; col < this.shape[row].length; col++) {
+                if (this.shape[row][col] === 1) {
+                    const nextCol = this.x + col - 1;
+                    if (nextCol < 0 || board[this.y + row][nextCol] === 1) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    canMoveRight() {
+        for (let row = 0; row < this.shape.length; row++) {
+            for (let col = 0; col < this.shape[row].length; col++) {
+                if (this.shape[row][col] === 1) {
+                    const nextCol = this.x + col + 1;
+                    if (nextCol >= cols || board[this.y + row][nextCol] === 1) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     moveDown() {
         this.y++;
     }
-    moveLeft(){
-        this.x--;
-        print("moved left")
+
+    moveLeft() {
+        if (this.canMoveLeft()) {
+            this.x--;
+        }
     }
-    moveRight(){
-        this.x++;
+
+    moveRight() {
+        if (this.canMoveRight()) {
+            this.x++;
+        }
     }
-    rotate(){
+
+    rotate() {
         let PieceName = this.WhichPiece(currentPiece.shape)
         print(PieceName)
         print(currentPiece.shape)
@@ -232,6 +269,7 @@ class Piece {
             this.shape = AllShapes[15]
         
     }
+
     WhichPiece(piece){
         
         for(let i = 0; i < AllShapes.length; i++){
@@ -240,6 +278,7 @@ class Piece {
             }
         }
     }
+
     compareArrays(a,b) {
         return JSON.stringify(a) === JSON.stringify(b);
     }
@@ -274,6 +313,29 @@ function keyPressed() {
             currentPiece.moveDown();
         } else if (keyCode === UP_ARROW) {
             currentPiece.rotate();
+        }
+    }
+}
+
+function checkAndClearLine() {
+    for (let row = rows - 1; row >= 0; row--) {
+        let lineCompleted = true;
+        for (let col = 0; col < cols; col++) {
+            if (board[row][col] !== 1) {
+                lineCompleted = false;
+                break;
+            }
+        }
+        if (lineCompleted) {
+            // Clear the line
+            for (let r = row; r > 0; r--) {
+                for (let c = 0; c < cols; c++) {
+                    board[r][c] = board[r - 1][c];
+                }
+            }
+            for (let c = 0; c < cols; c++) {
+                board[0][c] = 0;
+            }
         }
     }
 }
