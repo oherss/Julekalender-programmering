@@ -1,8 +1,12 @@
 html, body {
-  margin: 0;
-  padding: 0;
+  background-image: url(/../Pictures/christmas.jpg);
+  background-size: 70% 100%;
+  width:100vw;
+  height:100vh;
+  overflow: hidden;
+  margin-left: 0px;
 }
-button1 {
+button {
   background-color: red;
   color: white; 
   border: none; 
