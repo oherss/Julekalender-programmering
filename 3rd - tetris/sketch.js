@@ -1,6 +1,6 @@
 const rows = 20;
 const cols = 10;
-const blockSize = 30;
+let blockSize = 30;
 
 let gamespeed = 1;
 let board = [];
@@ -54,7 +54,11 @@ const AllShapesNames= [
 
 function setup() {
     frameRate = 60;
-    createCanvas(cols * blockSize, rows * blockSize);
+    
+    let canvas = createCanvas(cols * blockSize, rows * blockSize);
+    canvas.style('display', 'block');
+    canvas.style('margin', 'auto');
+    blockSize = windowHeight/33;
     initializeBoard();
     spawnPiece();
     BackButton = select('#BackButton')
