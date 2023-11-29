@@ -9,6 +9,49 @@ let gameOver = false;
 let BackButton;
 let time = 0;
 
+const AllShapes= [
+    [[1, 1], [1, 1]], // Square
+    [[1, 1, 1, 1]], // LineRIGHT
+    [[1],[1],[1],[1]], //LineUP
+    [[1,1,1], [0, 1, 0]], // T-shapeUP
+    [[1,0,0], [1, 1, 0], [1,0,0]], // T-shapeRIGHT
+    [[0,1,0], [1, 1, 1]], // T-shapeDOWN
+    [[0,0,1], [0, 1, 1], [0,0,1]], // T-shapeLEFT
+    [[1, 1, 0], [0, 1, 1]], // Z-shapeUP
+    [[0, 0, 1], [0, 1, 1], [0,1,0]], // Z-shapeDOWN
+    [[0, 1, 1], [1, 1, 0]], // S-shapeUP
+    [[0, 1, 0], [0, 1, 1], [0,0,1]], // S-shapeDOWN
+    [[1, 1, 1], [0, 0, 1]], // J-shapeUP
+    [[0, 0, 1], [0, 0, 1],[0,1,1]], // J-shapeRIGHT
+    [[1, 0, 0], [1, 1, 1]], // J-shapeDOWN
+    [[0, 1, 1], [0, 1, 0],[0,1,0]], // J-shapeLEFT
+    [[1, 1, 1], [1, 0, 0]], // L-shapeUP
+    [[1, 0, 0], [1, 0, 0],[1,1,0]], // L-shapeRIGHT
+    [[0, 0, 1], [1, 1, 1]], // L-shapeDOWN
+    [[1, 1, 0], [1, 0, 0],[1,0,0]], // L-shapeLEFT
+]
+const AllShapesNames= [
+    "Square",
+    "LineRIGHT",
+    "LineUP",
+    "T-ShapeUP",
+    "T-ShapeRIGHT",
+    "T-ShapeDOWN",
+   "T-ShapeLEFT",
+    "Z-ShapeUP",
+    "Z-ShapeDOWN",
+   "S-ShapeUP",
+    "S-ShapeDOWN",
+    "J-ShapeUP",
+    "J-ShapeRIGHT",
+    "J-ShapeDOWN",
+    "J-ShapeLEFT",
+    "L-ShapeUP",
+    "L-ShapeRIGHT",
+    "L-ShapeDOWN",
+    "L-ShapeLEFT"
+]
+
 function setup() {
     frameRate = 60;
     createCanvas(cols * blockSize, rows * blockSize);
@@ -139,12 +182,66 @@ class Piece {
         this.x++;
     }
     rotate(){
-        this.shape = [[1],[1],[1],[1]]
+        let PieceName = this.WhichPiece(currentPiece.shape)
+        print(PieceName)
         print(currentPiece.shape)
-        if(currentPiece.shape == [[1,1],[1,1]])
-        print("Square");
-         if(currentPiece.shape == [[1, 1, 1, 1]])
-        print("long piece")
+        //Square - Shape
+        if(PieceName == "Square")
+        return
+        //Line - Shapes
+        else if(PieceName == "LineRIGHT")
+            this.shape = AllShapes[2]
+        else if(PieceName == "LineUP")
+            this.shape = AllShapes[1]
+        //T - Shapes
+        else if(PieceName =="T-ShapeUP")
+            this.shape = AllShapes[4]
+        else if(PieceName =="T-ShapeRIGHT")
+            this.shape = AllShapes[5]
+        else if(PieceName =="T-ShapeDOWN")
+            this.shape = AllShapes[6]
+        else if(PieceName =="T-ShapeLEFT")
+            this.shape = AllShapes[3]
+        //Z - Shapes
+        else if(PieceName =="Z-ShapeUP")
+            this.shape = AllShapes[8]
+        else if(PieceName =="Z-ShapeDOWN")
+            this.shape = AllShapes[7]
+        //S - Shapes
+        else if(PieceName =="S-ShapeUP")
+            this.shape = AllShapes[10]
+        else if(PieceName =="S-ShapeDOWN")
+            this.shape = AllShapes[9]
+        //J - Shapes
+        else if(PieceName =="J-ShapeUP")
+            this.shape = AllShapes[12]
+        else if(PieceName =="J-ShapeRIGHT")
+            this.shape = AllShapes[13]
+        else if(PieceName =="J-ShapeDOWN")
+            this.shape = AllShapes[14]
+        else if(PieceName =="J-ShapeLEFT")
+            this.shape = AllShapes[11]
+        //L - Shapes
+        else if(PieceName =="L-ShapeUP")
+            this.shape = AllShapes[16]
+        else if(PieceName =="L-ShapeRIGHT")
+            this.shape = AllShapes[17]
+        else if(PieceName =="L-ShapeDOWN")
+            this.shape = AllShapes[18]
+        else if(PieceName =="L-ShapeLEFT")
+            this.shape = AllShapes[15]
+        
+    }
+    WhichPiece(piece){
+        
+        for(let i = 0; i < AllShapes.length; i++){
+            if(this.compareArrays(AllShapes[i], piece)){
+                return(AllShapesNames[i])
+            }
+        }
+    }
+    compareArrays(a,b) {
+        return JSON.stringify(a) === JSON.stringify(b);
     }
 
     lock() {
