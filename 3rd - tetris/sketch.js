@@ -54,11 +54,11 @@ const AllShapesNames= [
 
 function setup() {
     frameRate = 60;
-    
+    blockSize = windowHeight/33;
     let canvas = createCanvas(cols * blockSize, rows * blockSize);
     canvas.style('display', 'block');
     canvas.style('margin', 'auto');
-    blockSize = windowHeight/33;
+    
     initializeBoard();
     spawnPiece();
     BackButton = select('#BackButton')
