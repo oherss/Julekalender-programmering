@@ -37,10 +37,10 @@ const AllShapesNames= [
     "T-ShapeUP",
     "T-ShapeRIGHT",
     "T-ShapeDOWN",
-   "T-ShapeLEFT",
+    "T-ShapeLEFT",
     "Z-ShapeUP",
     "Z-ShapeDOWN",
-   "S-ShapeUP",
+    "S-ShapeUP",
     "S-ShapeDOWN",
     "J-ShapeUP",
     "J-ShapeRIGHT",
@@ -100,8 +100,10 @@ function updateGame() {
         if (currentPiece.isGameOver()) {
             gameOver = true;
         } else {
+            checkAndClearLines();
             spawnPiece();
         }
+        
     }
     else{
     time++;
@@ -175,17 +177,35 @@ class Piece {
         return true;
     }
 
-    moveDown() {
-        this.y++;
+    canMoveLeft() {
+        for (let row = 0; row < this.shape.length; row++) {
+            for (let col = 0; col < this.shape[row].length; col++) {
+                if (this.shape[row][col] === 1) {
+                    const nextCol = this.x + col - 1;
+                    if (nextCol < 0 || board[this.y + row][nextCol] === 1) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
-    moveLeft(){
-        this.x--;
-        print("moved left")
+
+    canMoveRight() {
+        for (let row = 0; row < this.shape.length; row++) {
+            for (let col = 0; col < this.shape[row].length; col++) {
+                if (this.shape[row][col] === 1) {
+                    const nextCol = this.x + col + 1;
+                    if (nextCol >= cols || board[this.y + row][nextCol] === 1) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
-    moveRight(){
-        this.x++;
-    }
-    rotate(){
+
+    rotate() {
         let PieceName = this.WhichPiece(currentPiece.shape)
         print(PieceName)
         print(currentPiece.shape)
@@ -235,7 +255,24 @@ class Piece {
         else if(PieceName =="L-ShapeLEFT")
             this.shape = AllShapes[15]
         
+        if (!this.canMoveLeft() || !this.canMoveRight() || !this.canMoveDown()) {
+            // Revert the rotation if it causes collision
+            this.shape = this.rotateBack(this.shape);
+        }
     }
+    
+    rotateBack(shape) {
+        const rotatedShape = [];
+        for (let col = shape[0].length - 1; col >= 0; col--) {
+            const newRow = [];
+            for (let row = 0; row < shape.length; row++) {
+                newRow.push(shape[row][col]);
+            }
+            rotatedShape.push(newRow);
+        }
+        return rotatedShape;
+    }
+    
     WhichPiece(piece){
         
         for(let i = 0; i < AllShapes.length; i++){
@@ -246,6 +283,24 @@ class Piece {
     }
     compareArrays(a,b) {
         return JSON.stringify(a) === JSON.stringify(b);
+    }
+
+    moveDown() {
+        if (this.canMoveDown()) {
+            this.y++;
+        }
+    }
+
+    moveLeft() {
+        if (this.canMoveLeft()) {
+            this.x--;
+        }
+    }
+
+    moveRight() {
+        if (this.canMoveRight()) {
+            this.x++;
+        }
     }
 
     lock() {
@@ -265,6 +320,33 @@ class Piece {
             }
         }
         return false;
+    }
+}
+
+function checkAndClearLines() {
+    for (let row = rows - 1; row >= 0; row--) {
+        let isFullLine = true;
+        for (let col = 0; col < cols; col++) {
+            if (board[row][col] !== 1) {
+                isFullLine = false;
+                break;
+            }
+        }
+        if (isFullLine) {
+            clearLine(row);
+            row++; // Check the same row again after clearing
+        }
+    }
+}
+
+function clearLine(row) {
+    for (let r = row; r > 0; r--) {
+        for (let col = 0; col < cols; col++) {
+            board[r][col] = board[r - 1][col];
+        }
+    }
+    for (let col = 0; col < cols; col++) {
+        board[0][col] = 0;
     }
 }
 
