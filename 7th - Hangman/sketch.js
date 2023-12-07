@@ -15,7 +15,8 @@ function preload(){
 
 function setup(){
     canvas = createCanvas(800,800)
-    
+    canvas.style('display', 'block');
+    canvas.style('margin', 'auto');
     background(image)
     //background(255)
     NewRound();
