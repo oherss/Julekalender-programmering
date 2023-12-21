@@ -1,4 +1,3 @@
-
 let words;
 let word;
 let image;
